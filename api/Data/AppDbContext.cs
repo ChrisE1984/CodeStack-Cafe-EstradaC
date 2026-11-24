@@ -10,5 +10,7 @@ namespace api.Data
         }
 
         public DbSet<Menu> Menu { get; set; }
+        public DbSet<Restaurant> Restaurant { get; set; }
+        public DbSet<Categories> Categories { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-const menuApiUrl = "http://localhost:5163/api/menu";
+const apiBaseUrl = "http://localhost:5163/api";
 
 const infoElement = document.getElementById("restaurant-info");
 const nameElement = document.getElementById("restaurant-name");
@@ -88,12 +88,12 @@ const renderCategoryNav = async (categories) => {
   categoryNav.replaceChildren(...items);
 };
 
-const renderMenu = async (items) => {
-  const categories = [...new Set(items.map((item) => item.category))].filter(
-    Boolean,
-  );
+const renderMenu = async (items, categories) => {
+  const categoryNames = categories
+    .map((category) => category.name)
+    .filter(Boolean);
 
-  const sections = categories.map((category, categoryIndex) => {
+  const sections = categoryNames.map((category, categoryIndex) => {
     const categoryItems = items.filter((item) => item.category === category);
     const number = String(categoryIndex + 1).padStart(2, "0");
 
@@ -187,18 +187,19 @@ const renderMenu = async (items) => {
 
   document.getElementById("status")?.remove();
 
-  await renderCategoryNav(categories);
+  await renderCategoryNav(categoryNames);
 };
 
 const initializeMenu = async () => {
   try {
-    const [restaurant, items] = await Promise.all([
-      fetchJson(`${menuApiUrl}/restaurant`),
-      fetchJson(menuApiUrl),
+    const [restaurants, categories, items] = await Promise.all([
+      fetchJson(`${apiBaseUrl}/restaurant`),
+      fetchJson(`${apiBaseUrl}/categories`),
+      fetchJson(`${apiBaseUrl}/menu`),
     ]);
 
-    await renderRestaurant(restaurant);
-    await renderMenu(items);
+    await renderRestaurant(restaurants[0]);
+    await renderMenu(items, categories);
   } catch (error) {
     const message = createElement(
       "p",

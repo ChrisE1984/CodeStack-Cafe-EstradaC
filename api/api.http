@@ -1,0 +1,71 @@
+@api_HostAddress = http://localhost:5163
+
+### Get all categories
+GET {{api_HostAddress}}/api/categories
+Accept: application/json
+
+### Get a category
+GET {{api_HostAddress}}/api/categories/1
+Accept: application/json
+
+### Get a missing category
+GET {{api_HostAddress}}/api/categories/999
+Accept: application/json
+
+### Create a category
+POST {{api_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Boot Up"
+}
+
+### Update a category
+PUT {{api_HostAddress}}/api/categories/1
+Content-Type: application/json
+
+{
+  "name": "Main Functions"
+}
+
+### Delete a category
+DELETE {{api_HostAddress}}/api/categories/1
+
+### Get all restaurants
+GET {{api_HostAddress}}/api/restaurants
+Accept: application/json
+
+### Get a restaurant
+GET {{api_HostAddress}}/api/restaurants/1
+Accept: application/json
+
+### Get a missing restaurant
+GET {{api_HostAddress}}/api/restaurants/999
+Accept: application/json
+
+### Create a restaurant
+POST {{api_HostAddress}}/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "CodeStack Café",
+  "tagline": "fuel for your next commit",
+  "address": "Room 101 · Main Campus",
+  "hours": "Mon–Fri · 8am–5pm",
+  "phone": "(555) 010-1010"
+}
+
+### Update a restaurant
+PUT {{api_HostAddress}}/api/restaurants/1
+Content-Type: application/json
+
+{
+  "name": "CodeStack Café",
+  "tagline": "fuel for your next commit",
+  "address": "Room 102 · Main Campus",
+  "hours": "Mon–Fri · 8am–5pm",
+  "phone": "(555) 010-1010"
+}
+
+### Delete a restaurant
+DELETE {{api_HostAddress}}/api/restaurants/1

@@ -27,6 +27,7 @@ namespace api.Controllers
             });
         }
 
+    
         [HttpGet]
         public async Task<ActionResult<List<MenuResponseDTO>>> GetAll()
         {

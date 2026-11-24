@@ -16,6 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IMenuRepository, MenuRepository> ();
 builder.Services.AddScoped<IMenuServices, MenuServices>();
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddScoped<ICategoriesServices, CategoriesServices>();
+builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+builder.Services.AddScoped<IRestaurantServices, RestaurantServices>();
 
 builder.Services.AddCors(options =>
 {
