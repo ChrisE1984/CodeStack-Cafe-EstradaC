@@ -1,0 +1,49 @@
+using api.Data;
+using api.Repository;
+using api.Services;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IMenuRepository, MenuRepository> ();
+builder.Services.AddScoped<IMenuServices, MenuServices>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy=>{
+        // here we are going to let our app know which
+        // origins and requests to allow
+        policy.AllowAnyOrigin()
+        //allows any requests header like Content-Type
+        .AllowAnyHeader()
+        // allows and HTTP Method: GET, POST, PUT, DELETE
+        .AllowAnyMethod();
+});
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.UseCors("Frontend");
+
+app.MapControllers();
+
+app.Run();

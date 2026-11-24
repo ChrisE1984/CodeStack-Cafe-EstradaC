@@ -113,10 +113,10 @@ const renderMenu = async (items) => {
         "mt-2.5 flex items-baseline justify-between gap-2",
       );
       titleRow.append(
-        createElement("h3", "text-xl leading-[0.5] font-black", item.name),
+        createElement("h3", "text-xl leading-[] font-black", item.name),
         createElement(
           "p",
-          "shrink-0 text-xl leading-[0.5] font-black text-orange-700",
+          "shrink-0 text-xl leading-[] font-black text-orange-700",
           formatPrice(item.price),
         ),
       );
