@@ -1,4 +1,8 @@
-const apiBaseUrl = "http://localhost:5163/api";
+import {
+  fetchRestaurants,
+  fetchCategories,
+  fetchMenuItems,
+} from "./dataresource.js";
 
 const infoElement = document.getElementById("restaurant-info");
 const nameElement = document.getElementById("restaurant-name");
@@ -46,14 +50,6 @@ const menuImages = new Map([
   ["Recursive Ramen", "recursive-ramen.jpg"],
   ["Stack Overflow Pancakes", "stack-overflow-pancakes.jpg"],
 ]);
-
-const fetchJson = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
-  }
-  return response.json();
-};
 
 const renderRestaurant = async (restaurant) => {
   nameElement.textContent = restaurant.name;
@@ -193,9 +189,9 @@ const renderMenu = async (items, categories) => {
 const initializeMenu = async () => {
   try {
     const [restaurants, categories, items] = await Promise.all([
-      fetchJson(`${apiBaseUrl}/restaurant`),
-      fetchJson(`${apiBaseUrl}/categories`),
-      fetchJson(`${apiBaseUrl}/menu`),
+      fetchRestaurants(),
+      fetchCategories(),
+      fetchMenuItems(),
     ]);
 
     await renderRestaurant(restaurants[0]);
